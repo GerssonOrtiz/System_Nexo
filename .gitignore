@@ -33,3 +33,6 @@ supabase/.temp
 .idea/
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+.env*
