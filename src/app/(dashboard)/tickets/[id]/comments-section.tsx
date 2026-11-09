@@ -49,9 +49,9 @@ export function TicketCommentsSection({
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-md p-6 sm:p-8 space-y-6 shadow-xl">
+      <div className="glass-card rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
         <h3 className="text-base font-bold text-white flex items-center gap-2">
-          <MessageSquare className="h-4 w-4 text-indigo-400" />
+          <MessageSquare className="h-4 w-4 text-neon-blue" />
           <span>Conversación y Seguimiento ({comments.length})</span>
         </h3>
 
@@ -73,8 +73,8 @@ export function TicketCommentsSection({
                     comment.is_internal
                       ? 'bg-amber-950/20 border-amber-800/40'
                       : isMine
-                      ? 'bg-indigo-950/20 border-indigo-900/30'
-                      : 'bg-slate-950/50 border-slate-800'
+                      ? 'bg-neon-blue/5 border-neon-blue/20'
+                      : 'bg-bg-elevated border-white/5'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-2 text-xs">
@@ -100,14 +100,14 @@ export function TicketCommentsSection({
         </div>
 
         {/* New Comment Box */}
-        <form onSubmit={handleSubmit} className="pt-4 border-t border-slate-800 space-y-3">
+        <form onSubmit={handleSubmit} className="pt-4 border-t border-white/5 space-y-3">
           <textarea
             rows={3}
             required
             placeholder="Escribe una respuesta o nota sobre este requerimiento..."
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            className="w-full px-4 py-2.5 bg-slate-950/60 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-y"
+            className="w-full px-4 py-2.5 bg-bg-elevated border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-neon-blue resize-y transition-all"
           />
 
           <div className="flex items-center justify-between">
@@ -117,7 +117,7 @@ export function TicketCommentsSection({
                   type="checkbox"
                   checked={isInternal}
                   onChange={(e) => setIsInternal(e.target.checked)}
-                  className="rounded border-slate-700 bg-slate-950 text-indigo-600 focus:ring-indigo-500"
+                  className="rounded border-white/20 bg-bg-elevated text-neon-blue focus:ring-neon-blue"
                 />
                 <span className="flex items-center gap-1">
                   <Lock className="h-3 w-3" /> Marcar como nota interna (oculta al solicitante)
@@ -130,7 +130,7 @@ export function TicketCommentsSection({
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition-all shadow-md shadow-indigo-600/20 disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-neon-blue/10 hover:bg-neon-blue/20 border border-neon-blue/30 text-neon-blue font-medium text-xs transition-all shadow-md shadow-neon-blue/5 disabled:opacity-50"
             >
               {loading ? (
                 <>

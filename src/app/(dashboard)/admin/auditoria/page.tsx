@@ -1,8 +1,7 @@
 import { requireRole } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { formatDate } from '@/lib/utils';
-import { ShieldAlert, Database, User, Activity } from 'lucide-react';
-import type { AuditLog } from '@/lib/supabase/types';
+import { ShieldAlert, User } from 'lucide-react';
 
 export default async function AuditLogPage() {
   await requireRole(['ADMIN_TI']);
@@ -28,7 +27,7 @@ export default async function AuditLogPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-          <ShieldAlert className="h-6 w-6 text-indigo-400" />
+          <ShieldAlert className="h-6 w-6 text-neon-blue" />
           Registro de Auditoría (Append-Only)
         </h1>
         <p className="text-sm text-slate-400 mt-1">
@@ -36,7 +35,7 @@ export default async function AuditLogPage() {
         </p>
       </div>
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm overflow-hidden">
+      <div className="glass-card rounded-2xl overflow-hidden">
         {error && (
           <div className="p-6 text-center text-sm text-red-400">
             Error al consultar logs: {error.message}
@@ -52,7 +51,7 @@ export default async function AuditLogPage() {
         {logs && logs.length > 0 && (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950/60 border-b border-slate-800 text-[10px] uppercase tracking-wider text-slate-400 font-semibold">
+              <thead className="bg-bg-elevated border-b border-white/5 text-[10px] uppercase tracking-wider text-slate-400 font-semibold">
                 <tr>
                   <th className="px-5 py-3">ID / Fecha</th>
                   <th className="px-5 py-3">Actor</th>
@@ -61,12 +60,12 @@ export default async function AuditLogPage() {
                   <th className="px-5 py-3">Diff / Cambios</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80">
+              <tbody className="divide-y divide-white/5">
                 {logs.map((log) => {
                   const actor = log.actor_id ? actorMap.get(log.actor_id) : null;
 
                   return (
-                    <tr key={log.id} className="hover:bg-slate-800/30 transition-colors">
+                    <tr key={log.id} className="hover:bg-neon-blue/5 transition-colors">
                       <td className="px-5 py-3 whitespace-nowrap">
                         <span className="font-mono text-slate-500 block">#{log.id}</span>
                         <span className="text-[11px] text-slate-400">{formatDate(log.created_at)}</span>
@@ -88,7 +87,7 @@ export default async function AuditLogPage() {
                             log.action === 'INSERT'
                               ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                               : log.action === 'UPDATE'
-                              ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                              ? 'bg-neon-blue/10 text-neon-blue border border-neon-blue/20'
                               : 'bg-red-500/10 text-red-400 border border-red-500/20'
                           }`}
                         >
@@ -104,7 +103,7 @@ export default async function AuditLogPage() {
                         )}
                       </td>
                       <td className="px-5 py-3 max-w-md">
-                        <pre className="p-2 rounded-lg bg-slate-950/80 border border-slate-800/80 text-[10px] font-mono text-slate-400 overflow-x-auto max-h-24">
+                        <pre className="p-2 rounded-lg bg-bg-elevated border border-white/5 text-[10px] font-mono text-slate-400 overflow-x-auto max-h-24">
                           {JSON.stringify(log.diff, null, 2)}
                         </pre>
                       </td>

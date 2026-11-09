@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #0b0f19;
-  --foreground: #f1f5f9;
+  --background: #050811;
+  --foreground: #F1F5F9;
 }
 
 body {
@@ -12,4 +12,67 @@ body {
   background: var(--background);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   min-height: 100vh;
+}
+
+@layer components {
+  /* Glass card base */
+  .glass-card {
+    background: rgba(14, 20, 36, 0.82);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,210,255,0.04);
+  }
+
+  /* Floating Vision Pro sidebar capsule */
+  .vision-sidebar-capsule {
+    border-radius: 1.5rem;
+    box-shadow: 0 0 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+    background: rgba(9, 13, 26, 0.92);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+  }
+
+  /* Nav item bubble */
+  .vision-item-bubble {
+    border-radius: 0.75rem;
+    transition: all 0.2s ease;
+  }
+  .vision-item-bubble:hover {
+    transform: scale(1.02);
+    background: rgba(0, 210, 255, 0.08);
+  }
+
+  /* Cyber micro-grid background overlay */
+  .linux-grid-bg {
+    background-image:
+      linear-gradient(rgba(0,210,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,210,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* Floating orb animations — only when motion is OK */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes float-orb {
+    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+    50%       { transform: translateY(-24px) scale(1.08); opacity: 0.9; }
+  }
+  @keyframes slide-in {
+    0%   { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0px); }
+  }
+  .animate-float-1 { animation: float-orb 6s ease-in-out infinite; }
+  .animate-float-2 { animation: float-orb 8s ease-in-out infinite 2s; }
+  .animate-float-3 { animation: float-orb 10s ease-in-out infinite 4s; }
+  .animate-slide-in { animation: slide-in 0.5s ease-out forwards; }
+}
+
+/* Fallback for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-1,
+  .animate-float-2,
+  .animate-float-3 { animation: none; opacity: 0.5; }
+  .animate-slide-in { animation: none; opacity: 1; transform: none; }
 }

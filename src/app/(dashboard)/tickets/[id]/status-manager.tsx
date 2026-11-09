@@ -48,7 +48,7 @@ export function TicketStatusManager({ ticketId, currentStatus, isAdmin }: Props)
     return (
       <div className="flex items-center gap-2">
         <span className="text-xs text-slate-400">Estado:</span>
-        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-200 border border-slate-700">
+        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-bg-elevated text-slate-200 border border-white/10">
           {statusOptions.find((s) => s.value === status)?.label ?? status}
         </span>
       </div>
@@ -63,17 +63,17 @@ export function TicketStatusManager({ ticketId, currentStatus, isAdmin }: Props)
           disabled={loading}
           value={status}
           onChange={(e) => handleStatusChange(e.target.value as TicketStatus)}
-          className="px-3 py-1.5 bg-slate-950 border border-slate-700 rounded-xl text-xs font-semibold text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+          className="px-3 py-1.5 bg-bg-elevated border border-white/10 rounded-xl text-xs font-semibold text-slate-100 focus:outline-none focus:ring-2 focus:ring-neon-blue disabled:opacity-50"
         >
           {statusOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
+            <option key={opt.value} value={opt.value} className="bg-bg-elevated text-slate-100">
               {opt.label}
             </option>
           ))}
         </select>
         {loading && (
           <div className="absolute inset-y-0 right-2 flex items-center pointer-events-none">
-            <Loader2 className="h-3 w-3 animate-spin text-indigo-400" />
+            <Loader2 className="h-3 w-3 animate-spin text-neon-blue" />
           </div>
         )}
       </div>

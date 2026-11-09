@@ -100,7 +100,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
       <div className="flex justify-end">
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all shadow-lg shadow-indigo-600/20"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-neon-blue/10 hover:bg-neon-blue/20 border border-neon-blue/30 text-neon-blue font-medium text-sm transition-all shadow-lg shadow-neon-blue/5"
         >
           <UserPlus className="h-4 w-4" />
           <span>Crear Usuario</span>
@@ -108,10 +108,10 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
       </div>
 
       {/* Users List */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm overflow-hidden">
+      <div className="glass-card rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-slate-300">
-            <thead className="bg-slate-950/60 border-b border-slate-800 text-[11px] uppercase tracking-wider text-slate-400 font-semibold">
+            <thead className="bg-bg-elevated border-b border-white/5 text-[11px] uppercase tracking-wider text-slate-400 font-semibold">
               <tr>
                 <th className="px-6 py-4">Usuario</th>
                 <th className="px-6 py-4">Nombre Completo</th>
@@ -121,13 +121,13 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                 {isSuperadmin && <th className="px-6 py-4 text-right">Acciones Superadmin</th>}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-white/5">
               {users.map((u) => {
                 const isMe = u.id === currentUserId;
 
                 return (
-                  <tr key={u.id} className="hover:bg-slate-800/30 transition-colors">
-                    <td className="px-6 py-4 font-mono text-xs text-indigo-300 font-bold">
+                  <tr key={u.id} className="hover:bg-neon-blue/5 transition-colors">
+                    <td className="px-6 py-4 font-mono text-xs text-neon-blue font-bold">
                       @{u.username}
                     </td>
                     <td className="px-6 py-4 font-medium text-slate-200">
@@ -135,14 +135,14 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                     </td>
                     <td className="px-6 py-4">
                       {u.is_superadmin ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-neon-purple/20 text-neon-purple border border-neon-purple/30">
                           <ShieldCheck className="h-3 w-3" /> SUPERADMIN
                         </span>
                       ) : (
                         <span
                           className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
                             u.role === 'ADMIN_TI'
-                              ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
+                              ? 'bg-neon-blue/10 text-neon-blue border-neon-blue/20'
                               : 'bg-slate-800 text-slate-400 border-slate-700'
                           }`}
                         >
@@ -169,7 +169,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                           <button
                             onClick={() => setResetModalUserId(u.id)}
                             title="Restablecer Contraseña"
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+                            className="p-1.5 rounded-lg bg-bg-elevated hover:bg-slate-700 text-slate-300 hover:text-white transition-colors border border-white/5"
                           >
                             <KeyRound className="h-3.5 w-3.5" />
                           </button>
@@ -178,10 +178,10 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                             <button
                               onClick={() => handleToggleActive(u.id, u.is_active)}
                               title={u.is_active ? 'Desactivar Cuenta' : 'Activar Cuenta'}
-                              className={`p-1.5 rounded-lg transition-colors ${
+                              className={`p-1.5 rounded-lg transition-colors border ${
                                 u.is_active
-                                  ? 'bg-red-950/30 text-red-400 hover:bg-red-900/50'
-                                  : 'bg-emerald-950/30 text-emerald-400 hover:bg-emerald-900/50'
+                                  ? 'bg-red-950/30 text-red-400 border-red-900/40 hover:bg-red-900/50'
+                                  : 'bg-emerald-950/30 text-emerald-400 border-emerald-900/40 hover:bg-emerald-900/50'
                               }`}
                             >
                               {u.is_active ? (
@@ -202,12 +202,12 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
         </div>
       </div>
 
-      {/* Modal Crear Usuario */}
+      {/* Modal Crear Usuario — OPACO bg-bg-elevated */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-md rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-md rounded-2xl bg-bg-elevated border border-white/10 p-6 space-y-4 shadow-2xl">
             <h4 className="text-lg font-bold text-white flex items-center gap-2">
-              <UserPlus className="h-5 w-5 text-indigo-400" />
+              <UserPlus className="h-5 w-5 text-neon-blue" />
               <span>Alta de Usuario Interno</span>
             </h4>
             <p className="text-xs text-slate-400">
@@ -225,7 +225,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                   placeholder="ej. jsmith"
                   value={username}
                   onChange={(e) => setUsername(e.target.value.toLowerCase())}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-xs font-mono"
+                  className="w-full px-3 py-2 bg-bg-forge-mid border border-white/10 rounded-xl text-slate-100 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-neon-blue"
                 />
               </div>
 
@@ -239,7 +239,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                   placeholder="ej. Juan Smith"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-xs"
+                  className="w-full px-3 py-2 bg-bg-forge-mid border border-white/10 rounded-xl text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-neon-blue"
                 />
               </div>
 
@@ -250,7 +250,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as UserRole)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-xs"
+                  className="w-full px-3 py-2 bg-bg-forge-mid border border-white/10 rounded-xl text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-neon-blue"
                 >
                   <option value="SOLICITANTE">SOLICITANTE (Mesa de ayuda y consulta de KB)</option>
                   <option value="ADMIN_TI">ADMIN_TI (Acceso completo a taller, tickets y auditoría)</option>
@@ -267,7 +267,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                   placeholder="Mínimo 6 caracteres"
                   value={tempPassword}
                   onChange={(e) => setTempPassword(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-xs font-mono"
+                  className="w-full px-3 py-2 bg-bg-forge-mid border border-white/10 rounded-xl text-slate-100 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-neon-blue"
                 />
               </div>
 
@@ -282,7 +282,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs disabled:opacity-50"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-neon-blue/10 hover:bg-neon-blue/20 border border-neon-blue/30 text-neon-blue font-medium text-xs disabled:opacity-50"
                 >
                   {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                   <span>Guardar Usuario</span>
@@ -293,10 +293,10 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
         </div>
       )}
 
-      {/* Modal Restablecer Contraseña (Superadmin) */}
+      {/* Modal Restablecer Contraseña (Superadmin) — OPACO bg-bg-elevated */}
       {resetModalUserId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-bg-elevated border border-white/10 p-6 space-y-4 shadow-2xl">
             <h4 className="text-base font-bold text-white flex items-center gap-2">
               <KeyRound className="h-4 w-4 text-amber-400" />
               <span>Restablecer Contraseña</span>
@@ -312,7 +312,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                 placeholder="Nueva contraseña (min 6 car.)"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 text-xs font-mono"
+                className="w-full px-3 py-2 bg-bg-forge-mid border border-white/10 rounded-xl text-slate-100 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-neon-blue"
               />
 
               <div className="flex justify-end gap-3">
@@ -329,7 +329,7 @@ export function UserManagementTable({ users, currentUserId, isSuperadmin }: Prop
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold disabled:opacity-50"
+                  className="px-3 py-1.5 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 border border-amber-500/30 text-amber-300 text-xs font-semibold disabled:opacity-50"
                 >
                   {loading ? 'Guardando...' : 'Actualizar'}
                 </button>

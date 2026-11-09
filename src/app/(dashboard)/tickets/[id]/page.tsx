@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
 import { TicketCommentsSection } from './comments-section';
 import { TicketStatusManager } from './status-manager';
-import { ArrowLeft, Clock, User, AlertCircle } from 'lucide-react';
-import type { TicketStatus, TicketPriority } from '@/lib/supabase/types';
+import { ArrowLeft, Clock, User } from 'lucide-react';
+import type { TicketStatus } from '@/lib/supabase/types';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -56,17 +56,17 @@ export default async function TicketDetailPage({ params }: PageProps) {
     <div className="max-w-4xl mx-auto space-y-6">
       <Link
         href="/tickets"
-        className="inline-flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-slate-200 transition-colors"
+        className="inline-flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-neon-blue transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         <span>Volver a la lista de tickets</span>
       </Link>
 
       {/* Ticket Header & Status Manager */}
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-md p-6 sm:p-8 space-y-6 shadow-xl">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="glass-card rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-6 border-b border-white/5">
           <div className="space-y-2">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-indigo-400 font-semibold bg-indigo-500/10 px-2.5 py-1 rounded-md border border-indigo-500/20">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-neon-blue font-semibold bg-neon-blue/10 px-2.5 py-1 rounded-md border border-neon-blue/20">
               Ticket #{ticket.id.slice(0, 8)}
             </span>
             <h1 className="text-2xl font-bold text-white tracking-tight">{ticket.title}</h1>
@@ -100,7 +100,7 @@ export default async function TicketDetailPage({ params }: PageProps) {
           <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
             Detalle del Requerimiento
           </h3>
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-slate-200 text-sm whitespace-pre-wrap leading-relaxed">
+          <div className="p-4 rounded-xl bg-bg-elevated border border-white/5 text-slate-200 text-sm whitespace-pre-wrap leading-relaxed">
             {ticket.description}
           </div>
         </div>

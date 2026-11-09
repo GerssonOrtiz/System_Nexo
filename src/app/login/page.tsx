@@ -1,15 +1,16 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { loginAction } from '@/actions/users';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-import { ShieldCheck, User, Lock, ArrowRight, Loader2 } from 'lucide-react';
+import { ShieldCheck, User, Lock, ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(loginAction, null);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (state?.success && state.data?.redirect) {
@@ -22,10 +23,26 @@ export default function LoginPage() {
   }, [state, router]);
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950">
-      <div className="w-full max-w-md rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-8 shadow-2xl">
+    <main className="relative flex min-h-screen items-center justify-center p-4 bg-bg-forge linux-grid-bg overflow-hidden">
+      {/* Floating plasma orbs */}
+      <div
+        aria-hidden="true"
+        className="animate-float-1 pointer-events-none absolute top-1/4 left-1/4 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="animate-float-2 pointer-events-none absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-indigo-600/10 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="animate-float-3 pointer-events-none absolute top-1/2 right-1/3 h-64 w-64 rounded-full bg-violet-600/10 blur-3xl"
+      />
+
+      {/* Login card */}
+      <div className="animate-slide-in relative w-full max-w-md glass-card rounded-2xl p-8 shadow-2xl">
+        {/* Logo / Brand */}
         <div className="flex flex-col items-center mb-8">
-          <div className="h-14 w-14 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-4 shadow-inner">
+          <div className="h-14 w-14 rounded-2xl bg-neon-blue/10 border border-neon-blue/20 flex items-center justify-center text-neon-blue mb-4 shadow-inner">
             <ShieldCheck className="h-8 w-8" />
           </div>
           <h1 className="text-2xl font-bold text-white tracking-tight">Nexo TI</h1>
@@ -35,6 +52,7 @@ export default function LoginPage() {
         </div>
 
         <form action={formAction} className="space-y-5">
+          {/* Username field */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
               Usuario de red
@@ -49,11 +67,12 @@ export default function LoginPage() {
                 required
                 autoComplete="username"
                 placeholder="ej. venllas"
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                className="w-full pl-10 pr-4 py-2.5 bg-bg-elevated border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-neon-blue focus:border-transparent transition-all"
               />
             </div>
           </div>
 
+          {/* Password field */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
               Contraseña
@@ -63,13 +82,21 @@ export default function LoginPage() {
                 <Lock className="h-4 w-4" />
               </div>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                className="w-full pl-10 pr-11 py-2.5 bg-bg-elevated border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-neon-blue focus:border-transparent transition-all"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-500 hover:text-slate-300 transition-colors"
+                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
             </div>
           </div>
 
@@ -82,7 +109,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isPending}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white font-medium rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-neon-blue/10 hover:bg-neon-blue/20 border border-neon-blue/30 hover:border-neon-blue/50 text-neon-blue font-medium rounded-xl text-sm transition-all shadow-lg shadow-neon-blue/5 disabled:opacity-50 disabled:cursor-not-allowed mt-2 focus-visible:ring-2 focus-visible:ring-neon-blue"
           >
             {isPending ? (
               <>
@@ -98,8 +125,8 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-slate-800 text-center">
-          <p className="text-xs text-slate-500">
+        <div className="mt-8 pt-6 border-t border-white/5 text-center">
+          <p className="text-xs text-slate-600">
             Cabelab &bull; Acceso restringido al personal autorizado
           </p>
         </div>
